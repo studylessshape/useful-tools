@@ -1,9 +1,33 @@
+#:property OutputPath=./output
+#:property PublishAot=false
+
 using System.Text;
 
 var argPath = args?.FirstOrDefault();
-if (string.IsNullOrEmpty(argPath))
+if (string.IsNullOrEmpty(argPath) || argPath == "-t" || argPath == "--target")
 {
     argPath = Environment.CurrentDirectory;
+}
+
+var targetPath = "";
+var isTargetPath = false;
+foreach (var para in args ?? [])
+{
+    if (isTargetPath)
+    {
+        targetPath = para;
+        break;
+    }
+    else if (para == "-t" || para == "--target")
+    {
+        isTargetPath = true;
+    }
+}
+
+if (string.IsNullOrEmpty(targetPath))
+{
+    Console.WriteLine("Need point the target directory by \"-t\" or \"--target\"!\r\nExample: \"copy-nuget D:\\Projects\\packages -t D:\\Projects\\nugets\"");
+    return;
 }
 
 Log($"Woring dir: {argPath}...");
