@@ -36,10 +36,9 @@ if (!Directory.Exists(argPath))
     return;
 }
 
-var copyToDir = "D:\\Projects\\copied";
-if (!Directory.Exists(copyToDir))
+if (!Directory.Exists(targetPath))
 {
-    Directory.CreateDirectory(copyToDir);
+    Directory.CreateDirectory(targetPath);
 }
 
 int count = 0;
@@ -49,7 +48,7 @@ try
 
     foreach (var file in nugetList)
     {
-        var target = Path.Combine(copyToDir, Path.GetFileName(file));
+        var target = Path.Combine(targetPath, Path.GetFileName(file));
         Log($"Copy \"{file}\" to \"{target}\"...");
         File.Copy(file, target, true);
         count += 1;
