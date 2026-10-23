@@ -1,5 +1,4 @@
 #:property OutputPath=./output
-#:property PublishAot=false
 
 using System.Text;
 
